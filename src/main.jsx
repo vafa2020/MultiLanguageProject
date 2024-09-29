@@ -4,11 +4,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/NotFound.jsx";
 import Layout from "./Layout/index.jsx";
 import ThemeProject from "./Theme/ThemeProject.jsx";
-import "./index.css";
 import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import Product from "./pages/Product.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./index.css";
 
 const router = createBrowserRouter([
   {

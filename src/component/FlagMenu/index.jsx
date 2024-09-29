@@ -10,7 +10,6 @@ const FlagMenu = () => {
   const { i18n, t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  console.log("first", i18n.language);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -77,29 +76,29 @@ const FlagMenu = () => {
         <MenuItem onClick={() => changeHandlerLanguage("fa")}>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}>
             <img src={IranFlag} height="20px" alt="IranFlag" />
-            <Typography>{t("Persion")}</Typography>
+            <Typography sx={{ fontFamily: "IRANYekanWeb" }}>{t("Persion")}</Typography>
           </Box>
         </MenuItem>
         <MenuItem onClick={() => changeHandlerLanguage("en")}>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}>
             <img src={EnglishFlag} height="20px" alt="EnglishFlag" />
-            <Typography>{t("English")}</Typography>
+            <Typography sx={{ fontFamily: "IRANYekanWeb" }}>{t("English")}</Typography>
           </Box>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} sx={{ fontFamily: "IRANYekanWeb" }}>
           <ListItemIcon>
             <HowToRegIcon fontSize="small" />
           </ListItemIcon>
           {t("Sign In")}
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} sx={{ fontFamily: "IRANYekanWeb" }}>
           <ListItemIcon>
             <LoginIcon fontSize="small" />
           </ListItemIcon>
           {t("Login")}
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} sx={{ fontFamily: "IRANYekanWeb" }}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>

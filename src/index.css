@@ -1,7 +1,18 @@
+@font-face {
+  font-family: "IRANYekanWeb";
+  src: local("IRANYekanWeb") url("./assets/Font/IRANYekanWeb-Bold.woff2") format("woff2"),
+    url("./assets/Font/IRANYekanWeb-Bold.woff") format("woff"),
+    url("./assets/Font/IRANYekanWeb-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
+  font-family: "IRANYekanWeb", sans-serif;
 }
