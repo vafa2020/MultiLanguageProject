@@ -16,12 +16,13 @@ const Products = () => {
     queryKey: ["products"],
     queryFn: () => axios.get("http://localhost:8000/perfume").then(({ data }) => data),
   });
+
+  const [searchInput, setSearchInput] = useState("");
   const [networkDispaly, setNetworkDisplay] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const cardPerPage = 3;
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
-  // console.log("products", products.data);
   return (
     <Grid container spacing={0} sx={{ alignItems: "flex-start", my: "3rem" }}>
       <Grid sx={{ paddingX: "1rem" }} size={{ xs: 12, md: 3 }}>
@@ -29,7 +30,14 @@ const Products = () => {
       </Grid>
       <Grid size={{ xs: 12, md: 9 }} sx={{ alignItems: "flex-start", paddingX: "3rem" }}>
         <Box sx={{ mb: "1rem", position: "relative" }}>
-          <TextField id="outlined-basic" label={t("search...")} variant="outlined" size="small" fullWidth />
+          <TextField
+            id="outlined-basic"
+            label={t("search...")}
+            variant="outlined"
+            size="small"
+            fullWidth
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
           <SearchIcon sx={{ position: "absolute", right: 20, top: 10 }} />
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: "1rem" }}>
@@ -46,21 +54,50 @@ const Products = () => {
           </Box>
         </Box>
         <Grid container spacing={2} columns={{ xs: 4, sm: 12, md: 12 }}>
-          {products.data.slice(indexOfFirstCard, indexOfLastCard)?.map((product) =>
-            networkDispaly ? (
-              <Grid key={product.id} size={{ xs: 12, sm: 6, md: 4 }}>
-                <ProductNetworkDisplay data={product} />
-              </Grid>
-            ) : (
-              <Grid key={product.id} size={{ xs: 12 }}>
-                <Product data={product} />
-              </Grid>
-            )
-          )}
+          {products.data
+            .filter((product) => {
+              if (searchInput.length > 0) {
+                for (const property of Object.values(product)) {
+                  if (property.toString().toLowerCase().includes(searchInput.toLowerCase())) {
+                    return product;
+                  }
+                }
+              } else {
+                return true;
+              }
+            })
+            ?.slice(indexOfFirstCard, indexOfLastCard)
+            ?.map((product) =>
+              networkDispaly ? (
+                <Grid key={product.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                  <ProductNetworkDisplay data={product} />
+                </Grid>
+              ) : (
+                <Grid key={product.id} size={{ xs: 12 }}>
+                  <Product data={product} />
+                </Grid>
+              )
+            )}
         </Grid>
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
           <Pagination
-            count={Math.ceil(products.data.length / cardPerPage)}
+            count={
+              searchInput.length > 0
+                ? Math.ceil(
+                    products.data.filter((product) => {
+                      if (searchInput.length > 0) {
+                        for (const property of Object.values(product)) {
+                          if (property.toString().toLowerCase().includes(searchInput.toLowerCase())) {
+                            return product;
+                          }
+                        }
+                      } else {
+                        return true;
+                      }
+                    }).length
+                  )
+                : Math.ceil(products.data?.length / cardPerPage)
+            }
             variant="outlined"
             shape="rounded"
             onChange={(e, page) => setCurrentPage(page)}
