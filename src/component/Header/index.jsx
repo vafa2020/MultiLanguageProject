@@ -4,7 +4,7 @@ const Header = () => {
   const theme = useTheme();
 
   return (
-    <header dir={theme.direction === "rtl" ? "rtl" : "ltr"} style={{ backgroundColor: "#c6c6c6", height: "5rem" }}>
+    <header dir={theme.direction === "rtl" ? "rtl" : "ltr"} style={{ backgroundColor: "#c6c6c6", height: "4rem" }}>
       <Navbar />
     </header>
   );

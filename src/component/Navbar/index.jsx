@@ -42,18 +42,6 @@ const Navbar = () => {
               {t("Product")}
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/profiles"
-              className={({ isActive }) => {
-                return {
-                  color: isActive ? "red" : "#ccc",
-                };
-              }}
-            >
-              {t("Profile")}
-            </NavLink>
-          </li>
         </Box>
         <Box>
           <li>
