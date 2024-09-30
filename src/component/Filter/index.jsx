@@ -7,6 +7,7 @@ import {
   Checkbox,
   FormControlLabel,
   FormGroup,
+  Slider,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -14,6 +15,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid2";
 import CheckIcon from "@mui/icons-material/Check";
+import { currencyFormat } from "../../Utils/CurrencyFormat";
 const colors = [
   "red",
   "green",
@@ -29,8 +31,20 @@ const colors = [
   "brown",
 ];
 const brands = ["Peugeot", "Porsche", "Toyota", "Bmw"];
+const MAX = 8000000000;
+const MIN = 200000000;
 const Filter = ({ data, setFilter, filter }) => {
   const { t } = useTranslation();
+  const marks = [
+    {
+      value: MIN,
+      label: t("cheap"),
+    },
+    {
+      value: MAX,
+      label: t("Expensive"),
+    },
+  ];
   const handleChange = (e) => {
     setFilter((prev) => {
       return {
@@ -39,9 +53,21 @@ const Filter = ({ data, setFilter, filter }) => {
       };
     });
   };
+
+  const handleChangePrice = (_, newValue) => {
+    setFilter((prev) => {
+      return {
+        ...prev,
+        price: newValue,
+      };
+    });
+  };
   return (
     <div>
       <Card sx={{ padding: ".5rem" }}>
+        <Typography sx={{ fontWeight: "bold", fontFamily: "IRANYekanWeb", fontSize: "1rem", my: "1rem" }}>
+          {t("Filters")}
+        </Typography>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
             {t("brand")}
@@ -63,8 +89,41 @@ const Filter = ({ data, setFilter, filter }) => {
             {t("price")}
           </AccordionSummary>
           <AccordionDetails>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit
-            leo lobortis eget.
+            <Box sx={{ width: 250 }}>
+              <Slider
+                marks={marks}
+                step={10}
+                value={filter.price}
+                valueLabelDisplay="auto"
+                min={MIN}
+                max={MAX}
+                onChange={handleChangePrice}
+              />
+              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography
+                  variant="body2"
+                  onClick={() =>
+                    setFilter((prev) => {
+                      return { ...prev, price: MIN };
+                    })
+                  }
+                  sx={{ cursor: "pointer" }}
+                >
+                  {currencyFormat(MIN)} {t("min")}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  onClick={() =>
+                    setFilter((prev) => {
+                      return { ...prev, price: MAX };
+                    })
+                  }
+                  sx={{ cursor: "pointer" }}
+                >
+                  {currencyFormat(MAX)} {t("max")}
+                </Typography>
+              </Box>
+            </Box>
           </AccordionDetails>
         </Accordion>
         <Accordion defaultExpanded>

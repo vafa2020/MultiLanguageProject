@@ -19,7 +19,6 @@ const ThemeProject = (props) => {
     key: "muirtl",
     stylisPlugins: [prefixer, rtlPlugin],
   });
-  console.log("i18n.language", i18n.language);
   return (
     <ThemeProvider theme={theme}>
       <CacheProvider value={i18n.language === "fa" ? cacheRtl : cache}>

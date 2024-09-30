@@ -18,14 +18,15 @@ const Products = () => {
     price: 0,
   });
   const products = useQuery({
-    queryKey: ["products", filter.color, filter.brand],
+    queryKey: ["products", filter.color, filter.brand, filter.price],
     queryFn: () =>
       axios.get("http://localhost:8000/car").then(({ data }) => {
         if (filter.color !== null || filter.brand !== null || filter.price > 0) {
           return data.filter((product) => {
             return (
               filter.brand.toLowerCase() === product.brand.toLowerCase() &&
-              filter.color.toLowerCase() === product.color.toLowerCase()
+              filter.color.toLowerCase() === product.color.toLowerCase() &&
+              filter.price >= product.price
             );
           });
         } else {
@@ -33,7 +34,7 @@ const Products = () => {
         }
       }),
   });
-  // console.log("filter", filter);
+  console.log("filter", filter);
   const [searchInput, setSearchInput] = useState("");
   const [networkDispaly, setNetworkDisplay] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);

@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "پژو 504L دنده ای سال 1972",
-      "price": 150000000,
+      "price": 200000000,
       "color": "grey",
       "brand": "Peugeot",
       "image": "../src/assets/Picture/peugeot-504L.webp"
@@ -11,7 +11,7 @@
     {
       "id": 2,
       "name": "پژو 206 صندوقدار V8 دنده ای سال 1396",
-      "price": 45000000,
+      "price": 450000000,
       "color": "blue",
       "brand": "Peugeot",
       "image": "../src/assets/Picture/peugeot-206SD.webp"
@@ -19,7 +19,7 @@
     {
       "id": 3,
       "name": "پژو 2008 اتوماتیک سال 1396",
-      "price": 12000000,
+      "price": 1200000000,
       "color": "white",
       "brand": "PeugeotT",
       "image": "../src/assets/Picture/peugeot-2008.webp"
@@ -35,7 +35,7 @@
     {
       "id": 5,
       "name": "پژو 508 اتوماتیک سال 2016",
-      "price": 250000000,
+      "price": 2500000000,
       "color": "grey",
       "brand": "Peugeot",
       "image": "../src/assets/Picture/peugeot-508.webp"

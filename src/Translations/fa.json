@@ -29,5 +29,10 @@
   "brown": "قهوه ای",
   "Showing": "نمایش",
   "product": "محصول",
-  "There Are Not Product": "محصولی وجود ندارد"
+  "There Are Not Product": "محصولی وجود ندارد",
+  "cheap": "ارزان",
+  "Expensive": "گران",
+  "min": "حداقل",
+  "max": "حداکثر",
+  "Filters": "فیلترها"
 }
