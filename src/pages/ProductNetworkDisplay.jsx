@@ -2,7 +2,11 @@ import { Button, Card, CardContent, CardMedia, Typography } from "@mui/material"
 import { useTranslation } from "react-i18next";
 import { currencyFormat } from "../Utils/CurrencyFormat";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useStoreCart } from "../store/store";
 const ProductNetworkDisplay = ({ data }) => {
+  const addToCart = useStoreCart((state) => state.addToCart);
+  const cart = useStoreCart((state) => state.cart);
+  console.log("cart", cart);
   const { t } = useTranslation();
   return (
     <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
@@ -18,7 +22,11 @@ const ProductNetworkDisplay = ({ data }) => {
         <Typography>{data?.brand}</Typography>
         <Typography sx={{ fontFamily: "IRANYekanWeb" }}>{data?.name}</Typography>
         <Typography>{currencyFormat(data?.price)}</Typography>
-        <Button variant="outlined" sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}>
+        <Button
+          variant="outlined"
+          sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}
+          onClick={() => addToCart(data)}
+        >
           <Typography variant="caption" sx={{ fontFamily: "IRANYekanWeb" }}>
             {t("Add To Card")}
           </Typography>

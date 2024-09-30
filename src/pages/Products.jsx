@@ -34,7 +34,7 @@ const Products = () => {
         }
       }),
   });
-  console.log("filter", filter);
+  // console.log("filter", filter);
   const [searchInput, setSearchInput] = useState("");
   const [networkDispaly, setNetworkDisplay] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
