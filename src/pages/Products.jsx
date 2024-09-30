@@ -18,16 +18,22 @@ const Products = () => {
     price: 0,
   });
   const products = useQuery({
-    queryKey: ["products", filter.color],
+    queryKey: ["products", filter.color, filter.brand],
     queryFn: () =>
       axios.get("http://localhost:8000/car").then(({ data }) => {
-        if (filter.color !== null) {
-          return data.filter((product) => product.color === filter.color);
+        if (filter.color !== null || filter.brand !== null || filter.price > 0) {
+          return data.filter((product) => {
+            return (
+              filter.brand.toLowerCase() === product.brand.toLowerCase() &&
+              filter.color.toLowerCase() === product.color.toLowerCase()
+            );
+          });
         } else {
           return data;
         }
       }),
   });
+  // console.log("filter", filter);
   const [searchInput, setSearchInput] = useState("");
   const [networkDispaly, setNetworkDisplay] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +44,7 @@ const Products = () => {
   return (
     <Grid container spacing={0} sx={{ alignItems: "flex-start", my: "3rem" }}>
       <Grid sx={{ paddingX: "1rem" }} size={{ xs: 12, md: 3 }}>
-        <Filter data={products.data} setFilter={setFilter} />
+        <Filter data={products.data} setFilter={setFilter} filter={filter} />
       </Grid>
       <Grid size={{ xs: 12, md: 9 }} sx={{ alignItems: "flex-start", paddingX: "3rem" }}>
         <Box sx={{ mb: "1rem", position: "relative" }}>

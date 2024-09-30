@@ -1,19 +1,19 @@
 import {
   Accordion,
-  AccordionActions,
   AccordionDetails,
   AccordionSummary,
-  alpha,
   Box,
-  Button,
   Card,
-  darken,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
   Tooltip,
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid2";
+import CheckIcon from "@mui/icons-material/Check";
 const colors = [
   "red",
   "green",
@@ -28,8 +28,17 @@ const colors = [
   "white",
   "brown",
 ];
-const Filter = ({ data, setFilter }) => {
+const brands = ["Peugeot", "Porsche", "Toyota", "Bmw"];
+const Filter = ({ data, setFilter, filter }) => {
   const { t } = useTranslation();
+  const handleChange = (e) => {
+    setFilter((prev) => {
+      return {
+        ...prev,
+        brand: e.target.name,
+      };
+    });
+  };
   return (
     <div>
       <Card sx={{ padding: ".5rem" }}>
@@ -38,8 +47,15 @@ const Filter = ({ data, setFilter }) => {
             {t("brand")}
           </AccordionSummary>
           <AccordionDetails>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex, sit amet blandit
-            leo lobortis eget.
+            <FormGroup>
+              {brands.map((brand, index) => (
+                <FormControlLabel
+                  key={index}
+                  control={<Checkbox checked={brand === filter?.brand} name={`${brand}`} onChange={handleChange} />}
+                  label={brand}
+                />
+              ))}
+            </FormGroup>
           </AccordionDetails>
         </Accordion>
         <Accordion>
@@ -77,8 +93,20 @@ const Filter = ({ data, setFilter }) => {
                         backgroundColor: color,
                         cursor: "pointer",
                         border: `1px solid #94a3b8`,
+                        position: "relative",
                       }}
-                    ></Box>
+                    >
+                      {filter?.color === color && (
+                        <Typography variant="caption" sx={{ position: "absolute", top: 0, left: 0 }}>
+                          <CheckIcon
+                            sx={{
+                              fontSize: "1rem",
+                              color: color === "white" || color === "yellow" || color === "gold" ? "black" : "white",
+                            }}
+                          />
+                        </Typography>
+                      )}
+                    </Box>
                   </Tooltip>
                 </Grid>
               ))}

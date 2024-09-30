@@ -6,7 +6,12 @@ const Product = ({ data }) => {
   const { t } = useTranslation();
   return (
     <Card sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", p: 2 }}>
-      <CardMedia component="img" image={data?.image} alt="product" sx={{ height: "200px", width: "200px" }} />
+      <CardMedia
+        component="img"
+        image={data?.image}
+        alt="product"
+        sx={{ height: "300px", width: "300px", objectFit: "contain" }}
+      />
       <CardContent
         sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2 }}
       >
