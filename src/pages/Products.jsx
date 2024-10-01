@@ -19,22 +19,9 @@ const Products = () => {
   });
   const products = useQuery({
     queryKey: ["products", filter.color, filter.brand, filter.price],
-    queryFn: () =>
-      axios.get("http://localhost:8000/car").then(({ data }) => {
-        if (filter.color !== null || filter.brand !== null || filter.price > 0) {
-          return data.filter((product) => {
-            return (
-              filter.brand.toLowerCase() === product.brand.toLowerCase() &&
-              filter.color.toLowerCase() === product.color.toLowerCase() &&
-              filter.price >= product.price
-            );
-          });
-        } else {
-          return data;
-        }
-      }),
+    queryFn: () => axios.get("http://localhost:8000/car").then(({ data }) => data),
   });
-  // console.log("filter", filter);
+  console.log("filter", filter);
   const [searchInput, setSearchInput] = useState("");
   const [networkDispaly, setNetworkDisplay] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -88,6 +75,13 @@ const Products = () => {
                   return true;
                 }
               })
+              .filter((product) => {
+                return (
+                  (filter.brand === null || filter.brand.toLowerCase() === product.brand.toLowerCase()) &&
+                  (filter.color === null || filter.color.toLowerCase() === product.color.toLowerCase()) &&
+                  (filter.price === 0 || filter.price >= product.price)
+                );
+              })
               ?.slice(indexOfFirstCard, indexOfLastCard)
               ?.map((product) =>
                 networkDispaly ? (
@@ -104,13 +98,14 @@ const Products = () => {
             <Typography sx={{ color: "red", fontFamily: "IRANYekanWeb" }}>{t("There Are Not Product")}.</Typography>
           )}
         </Grid>
-        {products.data?.length > 0 && (
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-            <Pagination
-              count={
-                searchInput.length > 0
-                  ? Math.ceil(
-                      products.data?.filter((product) => {
+
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+          <Pagination
+            count={
+              searchInput.length > 0 || filter.brand !== null || filter.color !== null || filter.price > 0
+                ? Math.ceil(
+                    products.data
+                      ?.filter((product) => {
                         if (searchInput?.length > 0) {
                           for (const property of Object.values(product)) {
                             if (property.toString().toLowerCase().includes(searchInput.toLowerCase())) {
@@ -120,16 +115,22 @@ const Products = () => {
                         } else {
                           return true;
                         }
-                      }).length
-                    )
-                  : Math.ceil(products.data?.length / cardPerPage)
-              }
-              variant="outlined"
-              shape="rounded"
-              onChange={(e, page) => setCurrentPage(page)}
-            />
-          </Box>
-        )}
+                      })
+                      .filter((product) => {
+                        return (
+                          (filter.brand === null || filter.brand.toLowerCase() === product.brand.toLowerCase()) &&
+                          (filter.color === null || filter.color.toLowerCase() === product.color.toLowerCase()) &&
+                          (filter.price === 0 || filter.price >= product.price)
+                        );
+                      }).length / cardPerPage
+                  )
+                : Math.ceil(products.data?.length / cardPerPage)
+            }
+            variant="outlined"
+            shape="rounded"
+            onChange={(e, page) => setCurrentPage(page)}
+          />
+        </Box>
       </Grid>
     </Grid>
   );

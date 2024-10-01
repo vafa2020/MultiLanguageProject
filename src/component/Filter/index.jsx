@@ -30,7 +30,7 @@ const colors = [
   "white",
   "brown",
 ];
-const brands = ["Peugeot", "Porsche", "Toyota", "Bmw"];
+const brands = ["Peugeot", "Porsche", "Toyota", "Bmw", "Nissan"];
 const MAX = 8000000000;
 const MIN = 200000000;
 const Filter = ({ data, setFilter, filter }) => {
