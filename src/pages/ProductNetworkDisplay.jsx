@@ -5,22 +5,21 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useStoreCart } from "../store/store";
 const ProductNetworkDisplay = ({ data }) => {
   const addToCart = useStoreCart((state) => state.addToCart);
-  const cart = useStoreCart((state) => state.cart);
-  console.log("cart", cart);
   const { t } = useTranslation();
+
   return (
     <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
       <CardMedia
         component="img"
         image={data?.image}
         alt="product"
-        sx={{ height: "300px", width: "300px", objectFit: "contain" }}
+        sx={{ height: "250px", width: "250px", objectFit: "contain", padding: 2 }}
       />
       <CardContent
         sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2 }}
       >
         <Typography>{data?.brand}</Typography>
-        <Typography sx={{ fontFamily: "IRANYekanWeb" }}>{data?.name}</Typography>
+        <Typography sx={{ fontFamily: "IRANYekanWeb", fontSize: ".8rem" }}>{data?.name}</Typography>
         <Typography>{currencyFormat(data?.price)}</Typography>
         <Button
           variant="outlined"
