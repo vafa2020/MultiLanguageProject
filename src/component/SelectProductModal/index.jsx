@@ -1,21 +1,17 @@
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 const SelectProductModal = ({ open, close, data }) => {
   const { t } = useTranslation();
   return (
     <div>
       <Dialog fullWidth maxWidth="xs" open={open} onClose={close}>
-        <DialogTitle>{t("This product has been added to the shopping cart")}!</DialogTitle>
+        <DialogTitle sx={{ color: "green" }}>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: 1 }}>
+            <CheckCircleOutlineIcon />
+            <Typography>{t("This product has been added to the shopping cart")}!</Typography>
+          </Box>
+        </DialogTitle>
         <DialogContent>
           <Box
             key={data.id}
@@ -32,7 +28,7 @@ const SelectProductModal = ({ open, close, data }) => {
                 <img
                   src={data?.image}
                   alt="product-image"
-                  style={{ height: "80px", width: "80px", objectFit: "contain" }}
+                  style={{ height: "90px", width: "90px", objectFit: "contain" }}
                 />
               </Box>
               <Box
@@ -44,7 +40,7 @@ const SelectProductModal = ({ open, close, data }) => {
                   gap: 1,
                 }}
               >
-                <Typography sx={{ fontFamily: "IRANYekanWeb", fontWeight: "bold", fontSize: ".8rem" }}>
+                <Typography sx={{ fontFamily: "IRANYekanWeb", fontWeight: "bold", fontSize: ".9rem" }}>
                   {data?.name}
                 </Typography>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
