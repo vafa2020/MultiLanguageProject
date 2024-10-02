@@ -3,6 +3,8 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  Button,
+  ButtonGroup,
   Card,
   Checkbox,
   FormControlLabel,
@@ -16,6 +18,7 @@ import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid2";
 import CheckIcon from "@mui/icons-material/Check";
 import { currencyFormat } from "../../Utils/CurrencyFormat";
+import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 const colors = [
   "red",
   "green",
@@ -65,9 +68,62 @@ const Filter = ({ data, setFilter, filter }) => {
   return (
     <div>
       <Card sx={{ padding: ".5rem" }}>
-        <Typography sx={{ fontWeight: "bold", fontFamily: "IRANYekanWeb", fontSize: "1rem", my: "1rem" }}>
-          {t("Filters")}
-        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <Typography sx={{ fontWeight: "bold", fontFamily: "IRANYekanWeb", fontSize: "1rem", my: "1rem" }}>
+            {t("Filters")}
+          </Typography>
+          <ButtonGroup variant="contained" aria-label="Basic button group">
+            <Button
+              variant="outlined"
+              sx={{ fontFamily: "IRANYekanWeb" }}
+              onClick={() =>
+                setFilter({
+                  color: null,
+                  brand: null,
+                  price: 0,
+                })
+              }
+            >
+              {t("Reset Filter")}
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{ fontFamily: "IRANYekanWeb" }}
+              onClick={() =>
+                setFilter({
+                  ...filter,
+                  brand: null,
+                })
+              }
+            >
+              {t("brand")}
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{ fontFamily: "IRANYekanWeb" }}
+              onClick={() =>
+                setFilter({
+                  ...filter,
+                  color: null,
+                })
+              }
+            >
+              {t("color")}
+            </Button>
+            <Button
+              variant="outlined"
+              sx={{ fontFamily: "IRANYekanWeb" }}
+              onClick={() =>
+                setFilter({
+                  ...filter,
+                  price: 0,
+                })
+              }
+            >
+              {t("price")}
+            </Button>
+          </ButtonGroup>
+        </Box>
         <Accordion>
           <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
             {t("brand")}

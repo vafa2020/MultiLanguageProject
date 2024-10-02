@@ -21,7 +21,7 @@ const Products = () => {
     queryKey: ["products", filter.color, filter.brand, filter.price],
     queryFn: () => axios.get("http://localhost:8000/car").then(({ data }) => data),
   });
-  console.log("filter", filter);
+  // console.log("filter", filter);
   const [searchInput, setSearchInput] = useState("");
   const [networkDispaly, setNetworkDisplay] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,6 +29,27 @@ const Products = () => {
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
 
+  const afterSearch = () => {
+    return products.data?.filter((product) => {
+      if (searchInput.length > 0) {
+        for (const property of Object.values(product)) {
+          if (property.toString().toLowerCase().includes(searchInput.toLowerCase())) {
+            return product;
+          }
+        }
+      } else {
+        return true;
+      }
+    });
+  };
+
+  const filterData = afterSearch()?.filter((product) => {
+    return (
+      (filter.brand === null || filter.brand.toLowerCase() === product.brand.toLowerCase()) &&
+      (filter.color === null || filter.color.toLowerCase() === product.color.toLowerCase()) &&
+      (filter.price === 0 || filter.price >= product.price)
+    );
+  });
   return (
     <Grid container spacing={0} sx={{ alignItems: "flex-start", my: "3rem" }}>
       <Grid sx={{ paddingX: "1rem" }} size={{ xs: 12, md: 3 }}>
@@ -48,7 +69,7 @@ const Products = () => {
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: "1rem" }}>
           <Typography sx={{ fontFamily: "IRANYekanWeb" }}>
-            {t("Showing")}: {products.data?.length} {t("product")}
+            {t("Showing")}: {filterData?.length} {t("product")}
           </Typography>
           <Box>
             <ButtonGroup variant="contained" aria-label="Basic button group">
@@ -63,37 +84,17 @@ const Products = () => {
         </Box>
         <Grid container spacing={2} columns={{ xs: 4, sm: 12, md: 12 }}>
           {products.data?.length > 0 ? (
-            products.data
-              ?.filter((product) => {
-                if (searchInput.length > 0) {
-                  for (const property of Object.values(product)) {
-                    if (property.toString().toLowerCase().includes(searchInput.toLowerCase())) {
-                      return product;
-                    }
-                  }
-                } else {
-                  return true;
-                }
-              })
-              .filter((product) => {
-                return (
-                  (filter.brand === null || filter.brand.toLowerCase() === product.brand.toLowerCase()) &&
-                  (filter.color === null || filter.color.toLowerCase() === product.color.toLowerCase()) &&
-                  (filter.price === 0 || filter.price >= product.price)
-                );
-              })
-              ?.slice(indexOfFirstCard, indexOfLastCard)
-              ?.map((product) =>
-                networkDispaly ? (
-                  <Grid key={product.id} size={{ xs: 12, sm: 6, md: 4 }}>
-                    <ProductNetworkDisplay data={product} />
-                  </Grid>
-                ) : (
-                  <Grid key={product.id} size={{ xs: 12 }}>
-                    <Product data={product} />
-                  </Grid>
-                )
+            filterData?.slice(indexOfFirstCard, indexOfLastCard)?.map((product) =>
+              networkDispaly ? (
+                <Grid key={product.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                  <ProductNetworkDisplay data={product} />
+                </Grid>
+              ) : (
+                <Grid key={product.id} size={{ xs: 12 }}>
+                  <Product data={product} />
+                </Grid>
               )
+            )
           ) : (
             <Typography sx={{ color: "red", fontFamily: "IRANYekanWeb" }}>{t("There Are Not Product")}.</Typography>
           )}
@@ -103,27 +104,7 @@ const Products = () => {
           <Pagination
             count={
               searchInput.length > 0 || filter.brand !== null || filter.color !== null || filter.price > 0
-                ? Math.ceil(
-                    products.data
-                      ?.filter((product) => {
-                        if (searchInput?.length > 0) {
-                          for (const property of Object.values(product)) {
-                            if (property.toString().toLowerCase().includes(searchInput.toLowerCase())) {
-                              return product;
-                            }
-                          }
-                        } else {
-                          return true;
-                        }
-                      })
-                      .filter((product) => {
-                        return (
-                          (filter.brand === null || filter.brand.toLowerCase() === product.brand.toLowerCase()) &&
-                          (filter.color === null || filter.color.toLowerCase() === product.color.toLowerCase()) &&
-                          (filter.price === 0 || filter.price >= product.price)
-                        );
-                      }).length / cardPerPage
-                  )
+                ? Math.ceil(filterData?.length / cardPerPage)
                 : Math.ceil(products.data?.length / cardPerPage)
             }
             variant="outlined"
