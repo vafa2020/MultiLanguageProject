@@ -28,7 +28,10 @@ const Product = ({ data }) => {
         <Button
           variant="outlined"
           sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}
-          onClick={() => addToCart(data)}
+          onClick={() => {
+            addToCart(data);
+            setModal(true);
+          }}
         >
           <Typography variant="caption">{t("Add To Card")}</Typography>
           <Typography variant="caption">
@@ -36,7 +39,7 @@ const Product = ({ data }) => {
           </Typography>
         </Button>
       </Card>
-      <SelectProductModal open={modal} close={() => setModal(false)} />
+      <SelectProductModal open={modal} close={() => setModal(false)} data={data} />
     </>
   );
 };
