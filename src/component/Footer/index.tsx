@@ -9,14 +9,14 @@ const Footer = () => {
     <footer
       dir={theme.direction === "rtl" ? "rtl" : "ltr"}
       style={{
-        backgroundColor: "#c6c6c6",
+        backgroundColor: "#222",
         height: "5rem",
         padding: "1rem",
       }}
     >
       <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "100%" }}>
-        <Typography>{t("Crafted by Mohammad Hossein Vafaee")}</Typography>
-        <Typography>{t("© 2024 - React Shopping")}</Typography>
+        <Typography sx={{ color: "white" }}>{t("Crafted by Mohammad Hossein Vafaee")}</Typography>
+        <Typography sx={{ color: "white" }}>{t("© 2024 - React Shopping")}</Typography>
       </Box>
     </footer>
   );

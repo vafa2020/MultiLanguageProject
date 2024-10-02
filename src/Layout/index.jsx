@@ -6,9 +6,9 @@ import { Box, useTheme } from "@mui/material";
 const Layout = () => {
   const theme = useTheme();
   return (
-    <Box>
+    <Box sx={{ position: "relative" }}>
       <Header />
-      <main dir={theme.direction === "rtl" ? "rtl" : "ltr"}>
+      <main dir={theme.direction === "rtl" ? "rtl" : "ltr"} style={{ minHeight: "100vh", marginTop: "6rem" }}>
         <Outlet />
       </main>
       <Footer />

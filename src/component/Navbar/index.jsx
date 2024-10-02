@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import FlagMenu from "../FlagMenu";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useStoreCart } from "../../store/store";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import CartModal from "../CartModal";
 const Navbar = () => {
   const { t } = useTranslation();
@@ -27,26 +27,12 @@ const Navbar = () => {
         >
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 5 }}>
             <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) => {
-                  return {
-                    color: isActive ? "red" : "#ccc",
-                  };
-                }}
-              >
+              <NavLink to="/" style={{ color: "white" }}>
                 {t("Home")}
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/products"
-                className={({ isActive }) => {
-                  return {
-                    color: isActive ? "red" : "#ccc",
-                  };
-                }}
-              >
+              <NavLink to="/products" style={{ color: "white" }}>
                 {t("Product")}
               </NavLink>
             </li>

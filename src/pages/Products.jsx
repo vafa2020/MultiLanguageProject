@@ -25,7 +25,7 @@ const Products = () => {
   const [searchInput, setSearchInput] = useState("");
   const [networkDispaly, setNetworkDisplay] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const cardPerPage = 3;
+  const cardPerPage = 6;
   const indexOfLastCard = currentPage * cardPerPage;
   const indexOfFirstCard = indexOfLastCard - cardPerPage;
 
