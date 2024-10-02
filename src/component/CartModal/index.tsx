@@ -130,18 +130,16 @@ const CartModal = ({ open, close, anchorEl, id }) => {
             }}
           >
             <img src={EmptyCart} alt="EmptyCart" style={{ height: "100px" }} />
-            <Typography sx={{ fontFamily: "IRANYekanWeb" }}>{t("Cart Is Empty")}</Typography>
+            <Typography>{t("Cart Is Empty")}</Typography>
           </Box>
         )}
         <Divider />
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", p: 2 }}>
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Typography sx={{ fontFamily: "IRANYekanWeb" }}>{t("Amount payable")}</Typography>
+            <Typography>{t("Amount payable")}</Typography>
             <Typography sx={{ color: "green" }}>{currencyFormat(totalPrice)}</Typography>
           </Box>
-          <Button variant="contained" sx={{ fontFamily: "IRANYekanWeb" }}>
-            {t("Final check")}
-          </Button>
+          <Button variant="contained">{t("Final check")}</Button>
         </Box>
       </Popover>
     </>

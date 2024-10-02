@@ -10,6 +10,13 @@ const ThemeProject = (props) => {
   const { i18n } = useTranslation();
   const theme = createTheme({
     direction: i18n.language === "fa" ? "rtl" : "ltr",
+    typography: {
+      fontFamily: `"IRANYekanWeb", sans-serif`,
+      fontSize: 14,
+      fontWeightLight: 300,
+      fontWeightRegular: 400,
+      fontWeightMedium: 500,
+    },
   });
   const cache = createCache({
     key: "muiltr",

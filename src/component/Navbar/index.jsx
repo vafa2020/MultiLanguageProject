@@ -66,9 +66,7 @@ const Navbar = () => {
                 }}
                 onClick={(event) => setAnchorEl(event.currentTarget)}
               >
-                <Typography variant="caption" sx={{ fontFamily: "IRANYekanWeb" }}>
-                  {t("cart")}
-                </Typography>
+                <Typography variant="caption">{t("cart")}</Typography>
                 <Typography variant="caption">
                   <Badge
                     badgeContent={count}

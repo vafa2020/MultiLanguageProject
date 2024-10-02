@@ -22,7 +22,7 @@ const Product = ({ data }) => {
           sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 2 }}
         >
           <Typography>{data?.brand}</Typography>
-          <Typography sx={{ fontFamily: "IRANYekanWeb" }}>{data?.name}</Typography>
+          <Typography>{data?.name}</Typography>
           <Typography>{currencyFormat(data?.price)}</Typography>
         </CardContent>
         <Button
@@ -30,9 +30,7 @@ const Product = ({ data }) => {
           sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}
           onClick={() => addToCart(data)}
         >
-          <Typography variant="caption" sx={{ fontFamily: "IRANYekanWeb" }}>
-            {t("Add To Card")}
-          </Typography>
+          <Typography variant="caption">{t("Add To Card")}</Typography>
           <Typography variant="caption">
             <ShoppingCartIcon />
           </Typography>

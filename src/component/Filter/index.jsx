@@ -66,7 +66,7 @@ const Filter = ({ data, setFilter, filter }) => {
     });
   };
   return (
-    <div>
+    <>
       <Card sx={{ padding: ".5rem" }}>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <Typography sx={{ fontWeight: "bold", fontFamily: "IRANYekanWeb", fontSize: "1rem", my: "1rem" }}>
@@ -75,7 +75,6 @@ const Filter = ({ data, setFilter, filter }) => {
           <ButtonGroup variant="contained" aria-label="Basic button group">
             <Button
               variant="outlined"
-              sx={{ fontFamily: "IRANYekanWeb" }}
               onClick={() =>
                 setFilter({
                   color: null,
@@ -88,7 +87,6 @@ const Filter = ({ data, setFilter, filter }) => {
             </Button>
             <Button
               variant="outlined"
-              sx={{ fontFamily: "IRANYekanWeb" }}
               onClick={() =>
                 setFilter({
                   ...filter,
@@ -100,7 +98,6 @@ const Filter = ({ data, setFilter, filter }) => {
             </Button>
             <Button
               variant="outlined"
-              sx={{ fontFamily: "IRANYekanWeb" }}
               onClick={() =>
                 setFilter({
                   ...filter,
@@ -112,7 +109,6 @@ const Filter = ({ data, setFilter, filter }) => {
             </Button>
             <Button
               variant="outlined"
-              sx={{ fontFamily: "IRANYekanWeb" }}
               onClick={() =>
                 setFilter({
                   ...filter,
@@ -229,7 +225,7 @@ const Filter = ({ data, setFilter, filter }) => {
           </AccordionDetails>
         </Accordion>
       </Card>
-    </div>
+    </>
   );
 };
 

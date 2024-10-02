@@ -68,7 +68,7 @@ const Products = () => {
           <SearchIcon sx={{ position: "absolute", right: 20, top: 10 }} />
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: "1rem" }}>
-          <Typography sx={{ fontFamily: "IRANYekanWeb" }}>
+          <Typography>
             {t("Showing")}: {filterData?.length} {t("product")}
           </Typography>
           <Box>
@@ -96,7 +96,7 @@ const Products = () => {
               )
             )
           ) : (
-            <Typography sx={{ color: "red", fontFamily: "IRANYekanWeb" }}>{t("There Are Not Product")}.</Typography>
+            <Typography sx={{ color: "red" }}>{t("There Are Not Product")}.</Typography>
           )}
         </Grid>
 

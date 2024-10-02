@@ -26,9 +26,7 @@ const ProductNetworkDisplay = ({ data }) => {
           sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}
           onClick={() => addToCart(data)}
         >
-          <Typography variant="caption" sx={{ fontFamily: "IRANYekanWeb" }}>
-            {t("Add To Card")}
-          </Typography>
+          <Typography variant="caption">{t("Add To Card")}</Typography>
           <Typography variant="caption">
             <ShoppingCartIcon />
           </Typography>
