@@ -10,6 +10,7 @@ import GridOnIcon from "@mui/icons-material/GridOn";
 import TableRowsIcon from "@mui/icons-material/TableRows";
 import { useState } from "react";
 import ProductNetworkDisplay from "./ProductNetworkDisplay";
+import AddProductModal from "../component/AddProductModal";
 const Products = () => {
   const { t } = useTranslation();
   const [filter, setFilter] = useState({
@@ -17,8 +18,9 @@ const Products = () => {
     brand: null,
     price: 0,
   });
+  const [addProductModal, setAddProductModal] = useState(false);
   const products = useQuery({
-    queryKey: ["products", filter.color, filter.brand, filter.price],
+    queryKey: ["products"],
     queryFn: () => axios.get("http://localhost:8000/car").then(({ data }) => data),
   });
   // console.log("filter", filter);
@@ -51,69 +53,77 @@ const Products = () => {
     );
   });
   return (
-    <Grid container spacing={0} sx={{ alignItems: "flex-start", my: "3rem" }}>
-      <Grid sx={{ paddingX: "1rem" }} size={{ xs: 12, md: 3 }}>
-        <Filter data={products.data} setFilter={setFilter} filter={filter} />
-      </Grid>
-      <Grid size={{ xs: 12, md: 9 }} sx={{ alignItems: "flex-start", paddingX: "3rem" }}>
-        <Box sx={{ mb: "1rem", position: "relative" }}>
-          <TextField
-            id="outlined-basic"
-            label={t("search...")}
-            variant="outlined"
-            size="small"
-            fullWidth
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-          <SearchIcon sx={{ position: "absolute", right: 20, top: 10 }} />
-        </Box>
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: "1rem" }}>
-          <Typography>
-            {t("Showing")}: {filterData?.length} {t("product")}
-          </Typography>
-          <Box>
-            <ButtonGroup variant="contained" aria-label="Basic button group">
-              <Button variant={networkDispaly ? "contained" : "outlined"} onClick={() => setNetworkDisplay(true)}>
-                <GridOnIcon />
-              </Button>
-              <Button variant={!networkDispaly ? "contained" : "outlined"} onClick={() => setNetworkDisplay(false)}>
-                <TableRowsIcon />
-              </Button>
-            </ButtonGroup>
-          </Box>
-        </Box>
-        <Grid container spacing={2} columns={{ xs: 4, sm: 12, md: 12 }}>
-          {products.data?.length > 0 ? (
-            filterData?.slice(indexOfFirstCard, indexOfLastCard)?.map((product) =>
-              networkDispaly ? (
-                <Grid key={product.id} size={{ xs: 12, sm: 6, md: 4 }}>
-                  <ProductNetworkDisplay data={product} />
-                </Grid>
-              ) : (
-                <Grid key={product.id} size={{ xs: 12 }}>
-                  <Product data={product} />
-                </Grid>
-              )
-            )
-          ) : (
-            <Typography sx={{ color: "red" }}>{t("There Are Not Product")}.</Typography>
-          )}
+    <>
+      <Grid container spacing={0} sx={{ alignItems: "flex-start", my: "3rem" }}>
+        <Grid sx={{ paddingX: "1rem" }} size={{ xs: 12, md: 3 }}>
+          <Filter data={products.data} setFilter={setFilter} filter={filter} />
         </Grid>
+        <Grid size={{ xs: 12, md: 9 }} sx={{ alignItems: "flex-start", paddingX: "3rem" }}>
+          <Box sx={{ mb: "1rem", position: "relative" }}>
+            <TextField
+              id="outlined-basic"
+              label={t("search...")}
+              variant="outlined"
+              size="small"
+              fullWidth
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+            <SearchIcon sx={{ position: "absolute", right: 20, top: 10 }} />
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: "1rem" }}>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2 }}>
+              <Typography>
+                {t("Showing")}: {filterData?.length} {t("product")}
+              </Typography>
+              <Button variant="contained" onClick={() => setAddProductModal(true)}>
+                {t("Add New Car")}
+              </Button>
+            </Box>
+            <Box>
+              <ButtonGroup variant="contained" aria-label="Basic button group">
+                <Button variant={networkDispaly ? "contained" : "outlined"} onClick={() => setNetworkDisplay(true)}>
+                  <GridOnIcon />
+                </Button>
+                <Button variant={!networkDispaly ? "contained" : "outlined"} onClick={() => setNetworkDisplay(false)}>
+                  <TableRowsIcon />
+                </Button>
+              </ButtonGroup>
+            </Box>
+          </Box>
+          <Grid container spacing={2} columns={{ xs: 4, sm: 12, md: 12 }}>
+            {products.data?.length > 0 ? (
+              filterData?.slice(indexOfFirstCard, indexOfLastCard)?.map((product) =>
+                networkDispaly ? (
+                  <Grid key={product.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                    <ProductNetworkDisplay data={product} />
+                  </Grid>
+                ) : (
+                  <Grid key={product.id} size={{ xs: 12 }}>
+                    <Product data={product} />
+                  </Grid>
+                )
+              )
+            ) : (
+              <Typography sx={{ color: "red" }}>{t("There Are Not Product")}.</Typography>
+            )}
+          </Grid>
 
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-          <Pagination
-            count={
-              searchInput.length > 0 || filter.brand !== null || filter.color !== null || filter.price > 0
-                ? Math.ceil(filterData?.length / cardPerPage)
-                : Math.ceil(products.data?.length / cardPerPage)
-            }
-            variant="outlined"
-            shape="rounded"
-            onChange={(e, page) => setCurrentPage(page)}
-          />
-        </Box>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            <Pagination
+              count={
+                searchInput.length > 0 || filter.brand !== null || filter.color !== null || filter.price > 0
+                  ? Math.ceil(filterData?.length / cardPerPage)
+                  : Math.ceil(products.data?.length / cardPerPage)
+              }
+              variant="outlined"
+              shape="rounded"
+              onChange={(e, page) => setCurrentPage(page)}
+            />
+          </Box>
+        </Grid>
       </Grid>
-    </Grid>
+      <AddProductModal open={addProductModal} close={() => setAddProductModal(false)} />
+    </>
   );
 };
 
