@@ -4,12 +4,20 @@ import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid2";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import UploadPhoto from "../UploadPhoto";
+import StepperUploadPhoto from "../StepperUploadPhoto";
 
 const AddProductModal = ({ open, close }) => {
   const { t } = useTranslation();
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
   const queryClient = useQueryClient();
+
+  const [fileUpload, setFileUpload] = useState();
+  const [activeStep, setActiveStep] = useState(0);
+  const [image, setImage] = useState("");
+
+  console.log("image__", image);
   const insertProduct = useMutation({
     mutationKey: ["insert-product"],
     mutationFn: (data) => axios.post("http://localhost:8000/car", data),
@@ -31,6 +39,10 @@ const AddProductModal = ({ open, close }) => {
       reset({});
     }
   }, [open]);
+
+  useEffect(() => {
+    setValue("image", image);
+  }, [image]);
   return (
     <div>
       <Dialog
@@ -60,6 +72,15 @@ const AddProductModal = ({ open, close }) => {
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <TextField fullWidth label={t("price")} size="small" id="price" type="number" {...register("price")} />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+              <StepperUploadPhoto
+                activeStep={activeStep}
+                setImage={setImage}
+                setFileUpload={setFileUpload}
+                setActiveStep={setActiveStep}
+                handleUpload={(img) => console.log("img", img)}
+              />
             </Grid>
           </Grid>
         </DialogContent>

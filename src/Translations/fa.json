@@ -44,5 +44,10 @@
   "Close": "بستن",
   "Add New Car": "اضافه کردن ماشین جدید",
   "Insert": "اضافه کردن",
-  "name": "نام ماشین"
+  "name": "نام ماشین",
+  "Prev Step": "مرحله قبلی",
+  "Next Step and Upload": "مرحله بعدی و آپلود عکس",
+  "Select Photo": "انتخاب عکس",
+  "Next Step": "مرحله بعدی",
+  "At in part you can select your photo": "در این بخش شما میتوانید عکس مورد نظر را انتخاب کنید "
 }
