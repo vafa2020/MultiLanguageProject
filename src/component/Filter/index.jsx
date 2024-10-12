@@ -18,7 +18,11 @@ import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid2";
 import CheckIcon from "@mui/icons-material/Check";
 import { currencyFormat } from "../../Utils/CurrencyFormat";
-import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
+import ColorLensIcon from "@mui/icons-material/ColorLens";
+import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import DoNotDisturbOnIcon from "@mui/icons-material/DoNotDisturbOn";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import CategoryIcon from "@mui/icons-material/Category";
 const colors = [
   "red",
   "green",
@@ -67,61 +71,119 @@ const Filter = ({ data, setFilter, filter }) => {
   };
   return (
     <>
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          mb:1
+        }}
+      >
+        <ButtonGroup
+          variant="contained"
+          color="secondary"
+          aria-label="Basic button group"
+          sx={{ width: "100%" }}
+        >
+          <Button
+            variant="outlined"
+            size="large"
+            fullWidth
+            onClick={() =>
+              setFilter({
+                color: null,
+                brand: null,
+                price: 0,
+              })
+            }
+          >
+            <Tooltip title={t("Reset Filter")}>
+              <DoNotDisturbOnIcon />
+            </Tooltip>
+          </Button>
+          <Button
+            fullWidth
+            size="large"
+            variant="outlined"
+            onClick={() =>
+              setFilter({
+                ...filter,
+                brand: null,
+              })
+            }
+          >
+            <Tooltip title={t("brand")}>
+              <CategoryIcon />
+            </Tooltip>
+          </Button>
+          <Button
+            fullWidth
+            variant="outlined"
+            size="large"
+            onClick={() =>
+              setFilter({
+                ...filter,
+                color: null,
+              })
+            }
+          >
+            <Tooltip title={t("color")}>
+              <ColorLensIcon />
+            </Tooltip>
+          </Button>
+          <Button
+            variant="outlined"
+            size="large"
+            fullWidth
+            onClick={() =>
+              setFilter({
+                ...filter,
+                price: 0,
+              })
+            }
+          >
+            <Tooltip title={t("price")}>
+              <AttachMoneyIcon />
+            </Tooltip>
+          </Button>
+        </ButtonGroup>
+      </Box>
       <Card sx={{ padding: ".5rem" }}>
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Typography sx={{ fontWeight: "bold", fontFamily: "IRANYekanWeb", fontSize: "1rem", my: "1rem" }}>
-            {t("Filters")}
-          </Typography>
-          <ButtonGroup variant="contained" aria-label="Basic button group">
-            <Button
-              variant="outlined"
-              onClick={() =>
-                setFilter({
-                  color: null,
-                  brand: null,
-                  price: 0,
-                })
-              }
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+            }}
+          >
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontFamily: "IRANYekanWeb",
+                fontSize: "1rem",
+                my: "1rem",
+              }}
             >
-              {t("Reset Filter")}
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() =>
-                setFilter({
-                  ...filter,
-                  brand: null,
-                })
-              }
-            >
-              {t("brand")}
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() =>
-                setFilter({
-                  ...filter,
-                  color: null,
-                })
-              }
-            >
-              {t("color")}
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={() =>
-                setFilter({
-                  ...filter,
-                  price: 0,
-                })
-              }
-            >
-              {t("price")}
-            </Button>
-          </ButtonGroup>
+              {t("Filters")}
+            </Typography>
+            <FilterAltIcon />
+          </Box>
         </Box>
         <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1-content" id="panel1-header">
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
             {t("brand")}
           </AccordionSummary>
           <AccordionDetails>
@@ -129,7 +191,13 @@ const Filter = ({ data, setFilter, filter }) => {
               {brands.map((brand, index) => (
                 <FormControlLabel
                   key={index}
-                  control={<Checkbox checked={brand === filter?.brand} name={`${brand}`} onChange={handleChange} />}
+                  control={
+                    <Checkbox
+                      checked={brand === filter?.brand}
+                      name={`${brand}`}
+                      onChange={handleChange}
+                    />
+                  }
                   label={brand}
                 />
               ))}
@@ -137,7 +205,11 @@ const Filter = ({ data, setFilter, filter }) => {
           </AccordionDetails>
         </Accordion>
         <Accordion>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2-content" id="panel2-header">
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel2-content"
+            id="panel2-header"
+          >
             {t("price")}
           </AccordionSummary>
           <AccordionDetails>
@@ -178,8 +250,12 @@ const Filter = ({ data, setFilter, filter }) => {
             </Box>
           </AccordionDetails>
         </Accordion>
-        <Accordion defaultExpanded>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3-content" id="panel3-header">
+        <Accordion >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel3-content"
+            id="panel3-header"
+          >
             {t("color")}
           </AccordionSummary>
           <AccordionDetails>
@@ -188,7 +264,11 @@ const Filter = ({ data, setFilter, filter }) => {
                 <Grid
                   key={index}
                   size={{ xs: 3, md: 2 }}
-                  sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
                   <Tooltip title={t(`${color}`)} placement="top" arrow>
                     <Box
@@ -208,11 +288,19 @@ const Filter = ({ data, setFilter, filter }) => {
                       }}
                     >
                       {filter?.color === color && (
-                        <Typography variant="caption" sx={{ position: "absolute", top: 0, left: 0 }}>
+                        <Typography
+                          variant="caption"
+                          sx={{ position: "absolute", top: 0, left: 0 }}
+                        >
                           <CheckIcon
                             sx={{
                               fontSize: "1rem",
-                              color: color === "white" || color === "yellow" || color === "gold" ? "black" : "white",
+                              color:
+                                color === "white" ||
+                                color === "yellow" ||
+                                color === "gold"
+                                  ? "black"
+                                  : "white",
                             }}
                           />
                         </Typography>

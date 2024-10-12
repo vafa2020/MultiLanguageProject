@@ -40,7 +40,7 @@
   "Amount payable": "مبلغ قابل پرداخت",
   "Final check": "چک نهایی",
   "This product has been added to the shopping cart": "این کالا به سبد خرید شما اضافه شد",
-  "Reset Filter": "پاک کردن فیلتر ها",
+  "Reset Filter": "پاک کردن همه ی فیلتر ها",
   "Close": "بستن",
   "Add New Car": "اضافه کردن ماشین جدید",
   "Insert": "اضافه کردن",
@@ -49,5 +49,7 @@
   "Next Step and Upload": "مرحله بعدی و آپلود عکس",
   "Select Photo": "انتخاب عکس",
   "Next Step": "مرحله بعدی",
-  "At in part you can select your photo": "در این بخش شما میتوانید عکس مورد نظر را انتخاب کنید "
+  "At in part you can select your photo": "در این بخش شما میتوانید عکس مورد نظر را انتخاب کنید ",
+  "Day": "روز",
+  "Night": "شب"
 }

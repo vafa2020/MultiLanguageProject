@@ -9,6 +9,7 @@ import Products from "./pages/Products.jsx";
 import Product from "./pages/Product.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
+import ThemeDarkModeProvider from "./Context/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,10 +37,12 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ThemeProject>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </ThemeProject>
+    <ThemeDarkModeProvider>
+      <ThemeProject>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </ThemeProject>
+    </ThemeDarkModeProvider>
   </StrictMode>
 );

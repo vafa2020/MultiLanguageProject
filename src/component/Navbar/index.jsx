@@ -1,4 +1,4 @@
-import { Badge, Box, Typography } from "@mui/material";
+import { Badge, Box, FormGroup, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import FlagMenu from "../FlagMenu";
@@ -6,6 +6,7 @@ import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { useStoreCart } from "../../store/store";
 import { useState } from "react";
 import CartModal from "../CartModal";
+import DayNight from "../../DayNight";
 const Navbar = () => {
   const { t } = useTranslation();
   const count = useStoreCart((state) => state.count);
@@ -25,7 +26,14 @@ const Navbar = () => {
             width: "100%",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 5 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 5,
+            }}
+          >
             <li>
               <NavLink to="/" style={{ color: "white" }}>
                 {t("Home")}
@@ -37,7 +45,19 @@ const Navbar = () => {
               </NavLink>
             </li>
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 5 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 5,
+            }}
+          >
+            <li>
+
+            <DayNight />
+
+            </li>
             <li>
               <Box
                 sx={{
@@ -74,7 +94,12 @@ const Navbar = () => {
           </Box>
         </ul>
       </nav>
-      <CartModal open={open} close={() => setAnchorEl(null)} id={id} anchorEl={anchorEl} />
+      <CartModal
+        open={open}
+        close={() => setAnchorEl(null)}
+        id={id}
+        anchorEl={anchorEl}
+      />
     </>
   );
 };
